@@ -14,7 +14,9 @@ OBJECTS_DIR = $$QROCKETLAUNCHSIMULATOR_OBJ_GUI
 MOC_DIR= $$QROCKETLAUNCHSIMULATOR_MOC_GUI
 
 SOURCES += main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    parameterwidget.cpp
 
 HEADERS  += \ 
-    mainwindow.hpp
+    mainwindow.hpp \
+    parameterwidget.hpp
