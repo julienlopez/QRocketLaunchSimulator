@@ -5,9 +5,19 @@ TEMPLATE = lib
 
 include (../QRocketLaunchSimulator.pri)
 
+INCLUDEPATH += ..
+
 OBJECTS_DIR = $$QROCKETLAUNCHSIMULATOR_OBJ_LIB
 MOC_DIR= $$QROCKETLAUNCHSIMULATOR_MOC_LIB
 
-SOURCES += 
+SOURCES += \ 
+    rocketmodel.cpp \
+    stagemodel.cpp \
+    ../external/json.cc \
+    utils/json_helper.cpp
 
-HEADERS  += 
+HEADERS  += \ 
+    rocketmodel.hpp \
+    ../external/json.h \
+    stagemodel.hpp \
+    utils/json_helper.hpp

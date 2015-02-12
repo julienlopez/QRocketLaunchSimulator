@@ -30,6 +30,7 @@ lcov --add-tracefile app.baseline --add-tracefile app --output-file app.info
 
 echo "removing useless data"
 lcov --remove app.info "/usr*" --output-file app.info
+lcov --remove app.info "external/*" --output-file app.info
 
 echo "generation html doc"
 genhtml -o cov-html app.info #>> lcov.log 2>> lcov.err

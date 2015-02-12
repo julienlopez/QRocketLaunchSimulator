@@ -10,3 +10,9 @@ moc_gui
 
 obj_tests
 moc_tests
+
+Makefile
+*/Makefile
+
+cov-html
+app*
