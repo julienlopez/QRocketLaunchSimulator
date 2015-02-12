@@ -1,0 +1,50 @@
+{
+	"name" : "Vega",
+	"stages" : 
+	[
+		{ 
+			"name": "P80",
+			"length" : 11.7,
+			"diameter" : 3,
+			"dry_mass" : 7330,
+			"gross_mass" : 95695,
+			"thrust" : 2261000,
+			"isp" : 280,
+			"burn_time" : 110,
+			"fuel" : "solid"
+		},
+		{ 
+			"name": "Z23",
+			"length" : 8.39,
+			"diameter" : 1.9,
+			"dry_mass" : 2850,
+			"gross_mass" : 28850,
+			"thrust" : 871000,
+			"isp" : 287.5,
+			"burn_time" : 77,
+			"fuel" : "solid"
+		},
+		{ 
+			"name": "Z9",
+			"length" : 4.12,
+			"diameter" : 1.9,
+			"dry_mass" : 1315,
+			"gross_mass" : 11815,
+			"thrust" : 260000,
+			"isp" : 296,
+			"burn_time" : 120,
+			"fuel" : "solid"
+		},
+		{ 
+			"name": "AVUM",
+			"length" : 1.7,
+			"diameter" : 2.31,
+			"dry_mass" : 147,
+			"gross_mass" : 697,
+			"thrust" : 2420,
+			"isp" : 315.5,
+			"burn_time" : 6672,
+			"fuel" : "UDMH/N204"
+		}
+	]
+}

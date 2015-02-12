@@ -1,6 +1,7 @@
 *.pro.user*
 
-bin
+bin/*
+!bin/rocket_models
 
 obj_lib
 
