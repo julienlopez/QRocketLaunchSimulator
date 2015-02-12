@@ -1,7 +1,7 @@
 #!/bin/bash
 
 OBJ_DIR=$PWD/obj_lib
-QMAKE=qmake-qt5
+QMAKE=qmake
 
 DIR_OPTIONS="--base-directory $PWD/lib --directory $OBJ_DIR" #--directory obj_tests --directory tests
 
