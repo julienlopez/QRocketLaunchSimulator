@@ -5,15 +5,15 @@
 
 class MainWindow : public QMainWindow
 {
-    Q_OBJECT
+	Q_OBJECT
 public:
-    explicit MainWindow(QWidget* parent_ = 0);
-    virtual ~MainWindow() = default;
+	explicit MainWindow(QWidget* parent_ = 0);
+	virtual ~MainWindow() = default;
 
 signals:
 
-public slots:
-
+public
+slots:
 };
 
 #endif // MAINWINDOW_HPP
