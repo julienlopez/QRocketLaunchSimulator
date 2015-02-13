@@ -15,6 +15,7 @@ public:
 
 private:
 	QComboBox* m_cb_rocket_model;
+	QDoubleSpinBox* m_dsb_payload_mass;
 	QDoubleSpinBox* m_dsb_start_gravity_turn;
 	QDoubleSpinBox* m_dsb_end_gravity_turn;
 	QDoubleSpinBox* m_dsb_angle;

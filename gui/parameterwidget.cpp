@@ -25,6 +25,15 @@ ParameterWidget::ParameterWidget(QWidget* parent_) : QWidget(parent_)
 
 	hl->addSpacing(c_spacing);
 
+	hl->addWidget(new QLabel(tr("Payload Mass (kg): ")));
+	m_dsb_payload_mass = new QDoubleSpinBox;
+	m_dsb_payload_mass->setMinimum(0);
+	m_dsb_payload_mass->setMaximum(5000);
+	m_dsb_payload_mass->setValue(1000);
+	hl->addWidget(m_dsb_payload_mass);
+
+	hl->addSpacing(c_spacing);
+
 	hl->addWidget(new QLabel(tr("Start of gravity turn (km): ")));
 	m_dsb_start_gravity_turn = new QDoubleSpinBox;
 	m_dsb_start_gravity_turn->setMinimum(0);
