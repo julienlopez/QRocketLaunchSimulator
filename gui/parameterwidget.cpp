@@ -1,10 +1,16 @@
 #include "parameterwidget.hpp"
 
-#include <QHBoxLayout>
+#include "rocketmodel.hpp"
+
+#include <fstream>
+
+#include <QApplication>
 #include <QComboBox>
+#include <QDir>
 #include <QDoubleSpinBox>
-#include <QPushButton>
+#include <QHBoxLayout>
 #include <QLabel>
+#include <QPushButton>
 
 ParameterWidget::ParameterWidget(QWidget* parent_) : QWidget(parent_)
 {
@@ -32,7 +38,7 @@ ParameterWidget::ParameterWidget(QWidget* parent_) : QWidget(parent_)
 	m_dsb_end_gravity_turn = new QDoubleSpinBox;
 	m_dsb_end_gravity_turn->setMinimum(5);
 	m_dsb_end_gravity_turn->setMaximum(500);
-	m_dsb_start_gravity_turn->setValue(100);
+    m_dsb_end_gravity_turn->setValue(100);
 	hl->addWidget(m_dsb_end_gravity_turn);
 
 	hl->addSpacing(c_spacing);
@@ -58,7 +64,19 @@ ParameterWidget::ParameterWidget(QWidget* parent_) : QWidget(parent_)
 
 QStringList ParameterWidget::loadRocketModels()
 {
-	return {"Vega", "Falcon9"};
+    const auto models_path = QApplication::applicationDirPath() + "/rocket_models";
+    const QDir directory = models_path;
+    Q_ASSERT(directory.exists());
+    auto files = directory.entryList({"*.json"});
+    std::transform(files.begin(), files.end(), files.begin(), [&directory](const QString& str)
+    {
+        Q_ASSERT(str.endsWith(".json"));
+        std::ifstream file(directory.absoluteFilePath(str).toStdString());
+        Q_ASSERT(file);
+        const auto model = RocketModel::fromJson(file);
+        return QString::fromStdString(model.name);
+    });
+    return files;
 }
 
 #include <QDebug>
