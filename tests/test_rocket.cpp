@@ -56,14 +56,14 @@ struct TestRocketTwoStages : public ::testing::Test
 													{"isp", 280},
 													{"burn_time", 110},
 													{"fuel", "solid"}},
-                                                   {{"name", "Z23"},
-                                                    {"length", 8.39},
-                                                    {"diameter", 1.9},
-                                                    {"dry_mass", 2850},
-                                                    {"gross_mass", 28850},
-                                                    {"thrust", 871000},
-                                                    {"isp", 287.5},
-                                                    {"burn_time", 77},
+												   {{"name", "Z23"},
+													{"length", 8.39},
+													{"diameter", 1.9},
+													{"dry_mass", 2850},
+													{"gross_mass", 28850},
+													{"thrust", 871000},
+													{"isp", 287.5},
+													{"burn_time", 77},
 													{"fuel", "solid"}}}}};
 		return RocketModel::fromJson(js);
 	}
@@ -74,17 +74,24 @@ struct TestRocketTwoStages : public ::testing::Test
 TEST_F(TestRocketTwoStages, TestDryMass)
 {
 	Rocket rocket(model);
-    ASSERT_EQ(model.stages.front().dry_mass + model.stages.back().dry_mass, rocket.dryMass());
+	ASSERT_EQ(model.stages.front().dry_mass + model.stages.back().dry_mass, rocket.dryMass());
 }
 
 TEST_F(TestRocketTwoStages, TestGrossMass)
 {
-    Rocket rocket(model);
-    ASSERT_EQ(model.stages.front().gross_mass + model.stages.back().gross_mass, rocket.grossMass());
+	Rocket rocket(model);
+	ASSERT_EQ(model.stages.front().gross_mass + model.stages.back().gross_mass, rocket.grossMass());
 }
 
 TEST_F(TestRocketTwoStages, TestCurrentMassOnConstruction)
 {
-    Rocket rocket(model);
-    ASSERT_EQ(model.stages.front().gross_mass + model.stages.back().gross_mass, rocket.currentMass());
+	Rocket rocket(model);
+	ASSERT_EQ(model.stages.front().gross_mass + model.stages.back().gross_mass,
+			  rocket.currentMass());
+}
+
+TEST_F(TestRocketTwoStages, TestCurrentThrustOnConstruction)
+{
+	Rocket rocket(model);
+	ASSERT_EQ(0, rocket.currentThrust());
 }

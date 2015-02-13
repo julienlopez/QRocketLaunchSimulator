@@ -19,11 +19,13 @@ public:
 
 	const container_stage_t& stages() const;
 
-    double currentMass() const;
+	double currentMass() const;
 
-    double grossMass() const;
+	double grossMass() const;
 
-    double dryMass() const;
+	double dryMass() const;
+
+	double currentThrust() const;
 
 private:
 	container_stage_t m_stages;

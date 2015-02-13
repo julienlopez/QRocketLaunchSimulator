@@ -10,7 +10,7 @@ public:
 
 	const StageModel model;
 
-    double currentMass() const;
+	double currentMass() const;
 };
 
 #endif // STAGE_HPP

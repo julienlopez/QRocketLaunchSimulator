@@ -16,24 +16,29 @@ auto Rocket::stages() const -> const container_stage_t &
 
 double Rocket::currentMass() const
 {
-    double res = 0;
-    for(const auto& stage : m_stages)
-        res += stage.currentMass();
-    return res;
+	double res = 0;
+	for(const auto& stage : m_stages)
+		res += stage.currentMass();
+	return res;
 }
 
 double Rocket::grossMass() const
 {
-    double res = 0;
-    for(const auto& stage : m_stages)
-        res += stage.model.gross_mass;
-    return res;
+	double res = 0;
+	for(const auto& stage : m_stages)
+		res += stage.model.gross_mass;
+	return res;
 }
 
 double Rocket::dryMass() const
 {
-    double res = 0;
-    for(const auto& stage : m_stages)
-        res += stage.model.dry_mass;
-    return res;
+	double res = 0;
+	for(const auto& stage : m_stages)
+		res += stage.model.dry_mass;
+	return res;
+}
+
+double Rocket::currentThrust() const
+{
+	return 0;
 }
