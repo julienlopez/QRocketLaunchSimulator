@@ -15,8 +15,10 @@ MOC_DIR= $$QROCKETLAUNCHSIMULATOR_MOC_GUI
 
 SOURCES += main.cpp \
     mainwindow.cpp \
-    parameterwidget.cpp
+    parameterwidget.cpp \
+    rocketwidget.cpp
 
 HEADERS  += \ 
     mainwindow.hpp \
-    parameterwidget.hpp
+    parameterwidget.hpp \
+    rocketwidget.hpp
