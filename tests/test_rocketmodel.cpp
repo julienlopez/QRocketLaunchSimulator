@@ -105,8 +105,8 @@ TEST(TestRocketModel, TestParsingRocketStagesInvalidType)
 
 TEST(TestRocketModel, TestParsingRocketStagesNumberInvalidType)
 {
-    std::stringstream ss;
-    ss << R"({ "name": "test", "stages": [ {
+	std::stringstream ss;
+	ss << R"({ "name": "test", "stages": [ {
           "name": "AVUM",
           "length" : 1.7,
           "diameter" : 2.31,
@@ -117,13 +117,13 @@ TEST(TestRocketModel, TestParsingRocketStagesNumberInvalidType)
           "burn_time" : 6672,
           "fuel" : "UDMH/N204"
       } ] } ")";
-    ASSERT_THROW(RocketModel::fromJson(ss), std::runtime_error);
+	ASSERT_THROW(RocketModel::fromJson(ss), std::runtime_error);
 }
 
 TEST(TestRocketModel, TestParsingRocketStagesNumberMissing)
 {
-    std::stringstream ss;
-    ss << R"({ "name": "test", "stages": [ {
+	std::stringstream ss;
+	ss << R"({ "name": "test", "stages": [ {
           "name": "AVUM",
           "length" : 1.7,
           "diameter" : 2.31,
@@ -133,6 +133,5 @@ TEST(TestRocketModel, TestParsingRocketStagesNumberMissing)
           "burn_time" : 6672,
           "fuel" : "UDMH/N204"
       } ] } ")";
-    ASSERT_THROW(RocketModel::fromJson(ss), std::runtime_error);
+	ASSERT_THROW(RocketModel::fromJson(ss), std::runtime_error);
 }
-
