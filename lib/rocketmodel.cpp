@@ -10,7 +10,11 @@ RocketModel RocketModel::fromJson(std::istream& i)
 {
 	json js;
 	i >> js;
+	return fromJson(js);
+}
 
+RocketModel RocketModel::fromJson(const nlohmann::json& js)
+{
 	const auto name = utils::json_helper::getAndCheckType
 		<std::string>(js, "name", json::value_t::string);
 

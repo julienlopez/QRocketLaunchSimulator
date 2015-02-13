@@ -14,10 +14,14 @@ SOURCES += \
     rocketmodel.cpp \
     stagemodel.cpp \
     ../external/json.cc \
-    utils/json_helper.cpp
+    utils/json_helper.cpp \
+    rocket.cpp \
+    stage.cpp
 
 HEADERS  += \ 
     rocketmodel.hpp \
     ../external/json.h \
     stagemodel.hpp \
-    utils/json_helper.hpp
+    utils/json_helper.hpp \
+    rocket.hpp \
+    stage.hpp

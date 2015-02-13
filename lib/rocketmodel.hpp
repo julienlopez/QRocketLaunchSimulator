@@ -16,6 +16,7 @@ public:
 	const stages_container_t stages;
 
 	static RocketModel fromJson(std::istream& i);
+	static RocketModel fromJson(const nlohmann::json& js);
 
 private:
 	RocketModel(std::string name_, stages_container_t stages_);
