@@ -12,10 +12,12 @@ class Rocket
 public:
 	using container_stage_t = std::vector<Stage>;
 
-	Rocket(const RocketModel& model);
+	Rocket() = delete;
+	Rocket(const RocketModel& model, double payload_mass_);
 	~Rocket() = default;
 
 	const std::string name;
+	const double payload_mass;
 
 	const container_stage_t& stages() const;
 

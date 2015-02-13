@@ -1,6 +1,7 @@
 #ifndef ROCKETMODEL_HPP
 #define ROCKETMODEL_HPP
 
+#include "fairings.hpp"
 #include "stagemodel.hpp"
 
 #include <vector>
@@ -14,12 +15,13 @@ public:
 
 	const std::string name;
 	const stages_container_t stages;
+	const Fairings fairings;
 
 	static RocketModel fromJson(std::istream& i);
 	static RocketModel fromJson(const nlohmann::json& js);
 
 private:
-	RocketModel(std::string name_, stages_container_t stages_);
+	RocketModel(std::string name_, stages_container_t stages_, const Fairings& fairings_);
 };
 
 #endif // ROCKETMODEL_HPP

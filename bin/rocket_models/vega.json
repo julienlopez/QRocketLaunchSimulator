@@ -46,5 +46,10 @@
 			"burn_time" : 6672,
 			"fuel" : "UDMH/N204"
 		}
-	]
+	],
+	"fairings" :
+	{
+		"length": 7.88,
+		"diameter": 2.6
+	}
 }

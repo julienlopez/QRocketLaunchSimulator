@@ -3,7 +3,9 @@
 
 #include <numeric>
 
-Rocket::Rocket(const RocketModel& model) : name(model.name)
+Rocket::Rocket(const RocketModel& model, double payload_mass_)
+	: name(model.name)
+	, payload_mass(payload_mass_)
 {
 	for(const auto& stage_model : model.stages)
 		m_stages.emplace_back(stage_model);

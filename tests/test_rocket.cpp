@@ -19,16 +19,18 @@ struct TestRocketOneStage : public ::testing::Test
 													{"thrust", 2261000},
 													{"isp", 280},
 													{"burn_time", 110},
-													{"fuel", "solid"}}}}};
+													{"fuel", "solid"}}}},
+				   {"fairings", {{"length", 7.88}, {"diameter", 2.6}}}};
 		return RocketModel::fromJson(js);
 	}
 
 	const RocketModel model = createModel();
+	const double payload_mass = 1E3;
 };
 
 TEST_F(TestRocketOneStage, TestConstruction)
 {
-	Rocket rocket(model);
+	Rocket rocket(model, payload_mass);
 	EXPECT_EQ(model.name, rocket.name);
 	ASSERT_EQ(1, rocket.stages().size());
 	const auto& stage = rocket.stages().front();
@@ -64,34 +66,36 @@ struct TestRocketTwoStages : public ::testing::Test
 													{"thrust", 871000},
 													{"isp", 287.5},
 													{"burn_time", 77},
-													{"fuel", "solid"}}}}};
+													{"fuel", "solid"}}}},
+				   {"fairings", {{"length", 7.88}, {"diameter", 2.6}}}};
 		return RocketModel::fromJson(js);
 	}
 
 	const RocketModel model = createModel();
+	const double payload_mass = 1E3;
 };
 
 TEST_F(TestRocketTwoStages, TestDryMass)
 {
-	Rocket rocket(model);
+	Rocket rocket(model, payload_mass);
 	ASSERT_EQ(model.stages.front().dry_mass + model.stages.back().dry_mass, rocket.dryMass());
 }
 
 TEST_F(TestRocketTwoStages, TestGrossMass)
 {
-	Rocket rocket(model);
+	Rocket rocket(model, payload_mass);
 	ASSERT_EQ(model.stages.front().gross_mass + model.stages.back().gross_mass, rocket.grossMass());
 }
 
 TEST_F(TestRocketTwoStages, TestCurrentMassOnConstruction)
 {
-	Rocket rocket(model);
+	Rocket rocket(model, payload_mass);
 	ASSERT_EQ(model.stages.front().gross_mass + model.stages.back().gross_mass,
 			  rocket.currentMass());
 }
 
 TEST_F(TestRocketTwoStages, TestCurrentThrustOnConstruction)
 {
-	Rocket rocket(model);
+	Rocket rocket(model, payload_mass);
 	ASSERT_EQ(0, rocket.currentThrust());
 }

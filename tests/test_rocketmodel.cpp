@@ -1,14 +1,19 @@
 #include "rocketmodel.hpp"
 
+#include "external/json.h"
+
 #include <stdexcept>
 
 #include <gtest/gtest.h>
+
+using nlohmann::json;
 
 TEST(TestRocketModel, TestParsingRocketWithNoStages)
 {
 	const std::string name = "test";
 	std::stringstream ss;
-	ss << R"({ "name": ")" + name + R"(", "stages": [] } ")";
+	ss << R"({ "name": ")" + name
+		  + R"(", "stages": [], "fairings" : {"length" : 7.88, "diameter" : 2.6} } ")";
 	auto rocket = RocketModel::fromJson(ss);
 	EXPECT_EQ(name, rocket.name);
 	EXPECT_TRUE(rocket.stages.empty());
@@ -68,7 +73,7 @@ TEST(TestRocketModel, TestParsingRocketWithTwoStages)
                                     "isp" : 315.5,
                                     "burn_time" : 6672,
                                     "fuel" : "UDMH/N204"
-                                }] } ")";
+                                }], "fairings" : {"length" : 7.88, "diameter" : 2.6} } } ")";
 	auto rocket = RocketModel::fromJson(ss);
 	EXPECT_EQ(name, rocket.name);
 	ASSERT_EQ(2, rocket.stages.size());
@@ -134,4 +139,22 @@ TEST(TestRocketModel, TestParsingRocketStagesNumberMissing)
           "fuel" : "UDMH/N204"
       } ] } ")";
 	ASSERT_THROW(RocketModel::fromJson(ss), std::runtime_error);
+}
+
+TEST(TestRocketModel, TestParsingRocketWithNoFairings)
+{
+	const std::string name = "test";
+	std::stringstream ss;
+	ss << R"({ "name": ")" + name + R"(", "stages": [] })";
+	ASSERT_THROW(RocketModel::fromJson(ss), std::runtime_error);
+}
+
+TEST(TestFairings, TestParsingInvalidFairings)
+{
+	const std::string name = "test";
+	std::stringstream ss;
+	ss << R"({ "name": ")" + name + R"(", "stages": [], "fairings" : 2 })";
+	json js;
+	js >> ss;
+	ASSERT_THROW(Fairings::fromJson(js["fairings"]), std::runtime_error);
 }

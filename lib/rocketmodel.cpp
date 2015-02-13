@@ -26,11 +26,15 @@ RocketModel RocketModel::fromJson(const nlohmann::json& js)
 		stages.push_back(StageModel::fromJson(stage));
 	}
 
-	return {std::move(name), std::move(stages)};
+	const auto p = utils::json_helper::getAndCheckType<json>(js, "fairings", json::value_t::object);
+	const auto fairings = Fairings::fromJson(p);
+
+	return {std::move(name), std::move(stages), fairings};
 }
 
-RocketModel::RocketModel(std::string name_, stages_container_t stages_)
+RocketModel::RocketModel(std::string name_, stages_container_t stages_, const Fairings& fairings_)
 	: name(std::move(name_))
 	, stages(std::move(stages_))
+	, fairings(fairings_)
 {
 }
