@@ -99,3 +99,9 @@ TEST_F(TestRocketTwoStages, TestCurrentThrustOnConstruction)
 	Rocket rocket(model, payload_mass);
 	ASSERT_EQ(0, rocket.currentThrust());
 }
+
+TEST_F(TestRocketTwoStages, TestTotalHeightOnConstruction)
+{
+    Rocket rocket(model, payload_mass);
+    ASSERT_EQ(11.7 + 8.39 + 7.88, rocket.totalLength());
+}

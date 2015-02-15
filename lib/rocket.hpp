@@ -1,6 +1,7 @@
 #ifndef ROCKET_HPP
 #define ROCKET_HPP
 
+#include "fairings.hpp"
 #include "stage.hpp"
 
 #include <vector>
@@ -29,8 +30,11 @@ public:
 
 	double currentThrust() const;
 
+    double totalLength() const;
+
 private:
 	container_stage_t m_stages;
+    const Fairings fairings;
 };
 
 #endif // ROCKET_HPP

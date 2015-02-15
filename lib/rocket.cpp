@@ -5,7 +5,8 @@
 
 Rocket::Rocket(const RocketModel& model, double payload_mass_)
 	: name(model.name)
-	, payload_mass(payload_mass_)
+    , payload_mass(payload_mass_)
+    , fairings(model.fairings)
 {
 	for(const auto& stage_model : model.stages)
 		m_stages.emplace_back(stage_model);
@@ -44,3 +45,12 @@ double Rocket::currentThrust() const
 {
 	return 0;
 }
+
+double Rocket::totalLength() const
+{
+    double res = fairings.length;
+    for(const auto& stage : m_stages)
+        res += stage.model.length;
+    return res;
+}
+
