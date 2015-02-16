@@ -16,7 +16,7 @@ void RocketWidget::setRocket(const Rocket& rocket)
 	m_rocket = rocket;
 	update();
 }
-#include <QDebug>
+
 void RocketWidget::paintEvent(QPaintEvent* evt)
 {
 	QWidget::paintEvent(evt);
@@ -97,7 +97,6 @@ void RocketWidget::drawStage(QPainter& painter, const Stage& stage, double offse
 	painter.save();
 	painter.setPen(Qt::NoPen);
 	painter.setBrush(Qt::cyan);
-	qDebug() << filledRect;
 	painter.drawRect(filledRect);
 	painter.restore();
 
