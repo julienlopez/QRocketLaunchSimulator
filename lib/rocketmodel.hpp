@@ -10,6 +10,9 @@ class RocketModel
 {
 public:
 	RocketModel() = delete;
+	RocketModel(RocketModel&&) = default;
+	RocketModel(const RocketModel&) = default;
+	~RocketModel() = default;
 
 	using stages_container_t = std::vector<StageModel>;
 

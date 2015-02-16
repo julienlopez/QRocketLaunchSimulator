@@ -15,10 +15,12 @@ public:
 
 	Rocket() = delete;
 	Rocket(const RocketModel& model, double payload_mass_);
+	Rocket(Rocket&&) = default;
 	~Rocket() = default;
 
 	const std::string name;
 	const double payload_mass;
+	const Fairings fairings;
 
 	const container_stage_t& stages() const;
 
@@ -30,11 +32,12 @@ public:
 
 	double currentThrust() const;
 
-    double totalLength() const;
+	double totalLength() const;
+
+	double maximumDiameter() const;
 
 private:
 	container_stage_t m_stages;
-    const Fairings fairings;
 };
 
 #endif // ROCKET_HPP

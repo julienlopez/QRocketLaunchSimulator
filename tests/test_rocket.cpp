@@ -102,6 +102,12 @@ TEST_F(TestRocketTwoStages, TestCurrentThrustOnConstruction)
 
 TEST_F(TestRocketTwoStages, TestTotalHeightOnConstruction)
 {
-    Rocket rocket(model, payload_mass);
-    ASSERT_EQ(11.7 + 8.39 + 7.88, rocket.totalLength());
+	Rocket rocket(model, payload_mass);
+	ASSERT_EQ(11.7 + 8.39 + 7.88, rocket.totalLength());
+}
+
+TEST_F(TestRocketTwoStages, TestMaxDiameterOnConstruction)
+{
+	Rocket rocket(model, payload_mass);
+	ASSERT_EQ(3, rocket.maximumDiameter());
 }

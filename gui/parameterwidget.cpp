@@ -1,7 +1,5 @@
 #include "parameterwidget.hpp"
 
-#include "rocketmodel.hpp"
-
 #include <fstream>
 
 #include <QApplication>
@@ -14,13 +12,14 @@
 
 ParameterWidget::ParameterWidget(QWidget* parent_) : QWidget(parent_)
 {
+	loadRocketModels();
 	const int c_spacing = 30;
 
 	auto* hl = new QHBoxLayout;
 
 	hl->addWidget(new QLabel(tr("Rocket Model: ")));
 	m_cb_rocket_model = new QComboBox;
-	m_cb_rocket_model->addItems(loadRocketModels());
+	m_cb_rocket_model->addItems(modelsNames());
 	hl->addWidget(m_cb_rocket_model);
 
 	hl->addSpacing(c_spacing);
@@ -71,21 +70,29 @@ ParameterWidget::ParameterWidget(QWidget* parent_) : QWidget(parent_)
 	setMinimumWidth(800);
 }
 
-QStringList ParameterWidget::loadRocketModels()
+void ParameterWidget::loadRocketModels()
 {
 	const auto models_path = QApplication::applicationDirPath() + "/rocket_models";
 	const QDir directory = models_path;
 	Q_ASSERT(directory.exists());
 	auto files = directory.entryList({"*.json"});
-	std::transform(files.begin(), files.end(), files.begin(), [&directory](const QString& str)
+	for(const auto& str : files)
 	{
 		Q_ASSERT(str.endsWith(".json"));
 		std::ifstream file(directory.absoluteFilePath(str).toStdString());
 		Q_ASSERT(file);
-		const auto model = RocketModel::fromJson(file);
-		return QString::fromStdString(model.name);
-	});
-	return files;
+		m_models.push_back(RocketModel::fromJson(file));
+	}
+}
+
+QStringList ParameterWidget::modelsNames() const
+{
+	QStringList res;
+	for(const auto& model : m_models)
+	{
+		res.push_back(QString::fromStdString(model.name));
+	}
+	return res;
 }
 
 #include <QDebug>
@@ -95,15 +102,25 @@ void ParameterWidget::launch()
 {
 	qDebug() << "ParameterWidget::launch()";
 	qDebug() << "Rocket Model : " << m_cb_rocket_model->currentText();
-	qDebug() << "Start of Gravity Turn : " << m_dsb_start_gravity_turn;
-	qDebug() << "End of Gravity Turn : " << m_dsb_end_gravity_turn;
-	qDebug() << "Angle : " << m_dsb_angle;
+	qDebug() << "Payload Mass : " << m_dsb_payload_mass->value();
+	qDebug() << "Start of Gravity Turn : " << m_dsb_start_gravity_turn->value();
+	qDebug() << "End of Gravity Turn : " << m_dsb_end_gravity_turn->value();
+	qDebug() << "Angle : " << m_dsb_angle->value();
 
 	m_cb_rocket_model->setEnabled(false);
 	m_dsb_start_gravity_turn->setEnabled(false);
 	m_dsb_end_gravity_turn->setEnabled(false);
 	m_dsb_angle->setEnabled(false);
 	m_launch_button->setEnabled(false);
+
+	const auto it
+		= std::find_if(m_models.cbegin(), m_models.cend(), [this](const RocketModel& model)
+	{ return model.name == m_cb_rocket_model->currentText().toStdString(); });
+	Q_ASSERT(it != m_models.cend());
+	emit prepareLaunch(
+		LaunchParameters{*it,								m_dsb_payload_mass->value(),
+						 m_dsb_start_gravity_turn->value(), m_dsb_end_gravity_turn->value(),
+						 m_dsb_angle->value()});
 
 	auto* timer = new QTimer;
 	timer->setSingleShot(true);

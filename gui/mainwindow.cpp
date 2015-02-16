@@ -1,8 +1,7 @@
 #include "mainwindow.hpp"
 #include "parameterwidget.hpp"
-#include "rocketwidget.hpp"
+#include "flightwidget.hpp"
 
-#include <QHBoxLayout>
 #include <QVBoxLayout>
 
 MainWindow::MainWindow(QWidget* parent_) : QMainWindow(parent_)
@@ -12,10 +11,10 @@ MainWindow::MainWindow(QWidget* parent_) : QMainWindow(parent_)
 	auto* pw = new ParameterWidget;
 	vl->addWidget(pw);
 
-    auto* hl = new QHBoxLayout;
-    hl->addWidget(new RocketWidget);
-    hl->addStretch();
-    vl->addLayout(hl);
+	auto* fw = new FlightWidget;
+	vl->addWidget(fw);
+
+	connect(pw, &ParameterWidget::prepareLaunch, fw, &FlightWidget::prepareLaunch);
 
 	auto* w = new QWidget;
 	w->setLayout(vl);
