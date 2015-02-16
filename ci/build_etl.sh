@@ -3,5 +3,6 @@ cd ..
 git clone https://github.com/julienlopez/ETL.git
 cd ETL
 ls -lh
-sudo ln -s etl /usr/include
+echo $PWD
+sudo ln -s $PWD/etl /usr/include
 ls -lh /usr/include
