@@ -18,12 +18,12 @@ auto Engine::state() const -> const State &
 
 double Engine::currentTime() const
 {
-    return get().currentTime();
+	return get().currentTime();
 }
 
 double Engine::altitude() const
 {
-    return get().altitude();
+	return get().altitude();
 }
 
 void Engine::tick(double dt)

@@ -26,13 +26,13 @@ public:
 
 	const State& state() const;
 
-    double currentTime() const;
+	double currentTime() const;
 
-    /**
-     * @brief altitude returns the altitude, relative to the ground.
-     * @return
-     */
-    double altitude() const;
+	/**
+	 * @brief altitude returns the altitude, relative to the ground.
+	 * @return
+	 */
+	double altitude() const;
 
 	void tick(double dt);
 };

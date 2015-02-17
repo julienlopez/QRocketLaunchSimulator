@@ -36,32 +36,32 @@ struct TestSimulationBasicRocket : public ::testing::Test
 
 TEST_F(TestSimulationBasicRocket, TestInitialConditions)
 {
-    EXPECT_NEAR(expected_initial_position.x(), engine.state().position.x(), 1E-6);
-    EXPECT_NEAR(expected_initial_position.y(), engine.state().position.y(), 1E-6);
-    EXPECT_NEAR(expected_initial_position.z(), engine.state().position.z(), 1E-6);
-    EXPECT_EQ(0, rocket.currentThrust());
-    EXPECT_NEAR(rocket.totalLength(), engine.altitude(), 1E-3);
+	EXPECT_NEAR(expected_initial_position.x(), engine.state().position.x(), 1E-6);
+	EXPECT_NEAR(expected_initial_position.y(), engine.state().position.y(), 1E-6);
+	EXPECT_NEAR(expected_initial_position.z(), engine.state().position.z(), 1E-6);
+	EXPECT_EQ(0, rocket.currentThrust());
+	EXPECT_NEAR(rocket.totalLength(), engine.altitude(), 1E-3);
 }
 
 TEST_F(TestSimulationBasicRocket, TestStateAtLaunch)
 {
 	rocket.fire();
-    EXPECT_NEAR(expected_initial_position.x(), engine.state().position.x(), 1E-6);
-    EXPECT_NEAR(expected_initial_position.y(), engine.state().position.y(), 1E-6);
-    EXPECT_NEAR(expected_initial_position.z(), engine.state().position.z(), 1E-6);
-    EXPECT_EQ(model.stages.front().thrust, rocket.currentThrust());
-    EXPECT_NEAR(rocket.totalLength(), engine.altitude(), 1E-3);
+	EXPECT_NEAR(expected_initial_position.x(), engine.state().position.x(), 1E-6);
+	EXPECT_NEAR(expected_initial_position.y(), engine.state().position.y(), 1E-6);
+	EXPECT_NEAR(expected_initial_position.z(), engine.state().position.z(), 1E-6);
+	EXPECT_EQ(model.stages.front().thrust, rocket.currentThrust());
+	EXPECT_NEAR(rocket.totalLength(), engine.altitude(), 1E-3);
 }
 
 TEST_F(TestSimulationBasicRocket, TestStateAfterLaunch)
 {
-    const double step = .1;
+	const double step = .1;
 	rocket.fire();
-    engine.tick(step);
-    EXPECT_EQ(step, engine.currentTime());
+	engine.tick(step);
+	EXPECT_EQ(step, engine.currentTime());
 	const auto expected = initial_position + Engine::position_t{0, rocket.totalLength(), 0};
-    EXPECT_NEAR(expected.x(), engine.state().position.x(), 1E-6);
-    EXPECT_NEAR(expected.y() + .237, engine.state().position.y(), 1E-3);
-    EXPECT_NEAR(expected.z(), engine.state().position.z(), 1E-6);
-    EXPECT_NEAR(rocket.totalLength() + .237, engine.altitude(), 1E-3);
+	EXPECT_NEAR(expected.x(), engine.state().position.x(), 1E-6);
+	EXPECT_NEAR(expected.y() + .237, engine.state().position.y(), 1E-3);
+	EXPECT_NEAR(expected.z(), engine.state().position.z(), 1E-6);
+	EXPECT_NEAR(rocket.totalLength() + .237, engine.altitude(), 1E-3);
 }
