@@ -43,7 +43,9 @@ double Rocket::dryMass() const
 
 double Rocket::currentThrust() const
 {
-	return 0;
+	if(!m_is_firing || m_stages.empty())
+		return 0;
+	return m_stages.front().currentThrust();
 }
 
 double Rocket::totalLength() const
@@ -60,4 +62,9 @@ double Rocket::maximumDiameter() const
 	for(const auto& stage : m_stages)
 		res = std::max(stage.model.diameter, res);
 	return res;
+}
+
+void Rocket::fire()
+{
+	m_is_firing = true;
 }

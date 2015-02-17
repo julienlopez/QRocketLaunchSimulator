@@ -11,6 +11,8 @@ public:
 	const StageModel model;
 
 	double currentMass() const;
+
+	double currentThrust() const;
 };
 
 #endif // STAGE_HPP

@@ -19,4 +19,5 @@ MOC_DIR= $$QROCKETLAUNCHSIMULATOR_MOC_TESTS
 
 SOURCES += main.cpp \
     test_rocketmodel.cpp \
-    test_rocket.cpp
+    test_rocket.cpp \
+    test_simulation.cpp

@@ -17,7 +17,9 @@ SOURCES += \
     utils/json_helper.cpp \
     rocket.cpp \
     stage.cpp \
-    fairings.cpp
+    fairings.cpp \
+    engine.cpp \
+    engine_impl.cpp
 
 HEADERS  += \ 
     rocketmodel.hpp \
@@ -26,4 +28,7 @@ HEADERS  += \
     utils/json_helper.hpp \
     rocket.hpp \
     stage.hpp \
-    fairings.hpp
+    fairings.hpp \
+    engine.hpp \
+    utils/point.hpp \
+    engine_impl.hpp
