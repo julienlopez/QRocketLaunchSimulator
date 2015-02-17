@@ -7,8 +7,11 @@
 
 #include <QWidget>
 
+class Engine;
 class Rocket;
+
 class RocketWidget;
+class TelemetryWidget;
 
 class FlightWidget : public QWidget
 {
@@ -19,14 +22,34 @@ public:
 
 private:
 	using rocket_up = std::unique_ptr<Rocket>;
-	rocket_up m_rocket;
-	RocketWidget* m_rocket_widget;
+	using engine_up = std::unique_ptr<Engine>;
 
-signals:
+	rocket_up m_rocket;
+	engine_up m_engine;
+
+	RocketWidget* m_rocket_widget;
+	TelemetryWidget* m_telemetry_widget;
+
+	QTimer* m_update_timer;
+
+	static constexpr double s_dt = .1;
 
 public
 slots:
 	void prepareLaunch(const LaunchParameters& parameters);
+
+	void launch();
+
+signals:
+	void done();
+
+private
+slots:
+	/**
+	 * @brief onTimerClick
+	 * @preconditions m_engine is valid
+	 */
+	void onTimerClick();
 };
 
 #endif // FLIGHTWIDGET_HPP

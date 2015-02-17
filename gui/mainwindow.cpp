@@ -15,6 +15,7 @@ MainWindow::MainWindow(QWidget* parent_) : QMainWindow(parent_)
 	vl->addWidget(fw);
 
 	connect(pw, &ParameterWidget::prepareLaunch, fw, &FlightWidget::prepareLaunch);
+	connect(fw, &FlightWidget::done, pw, &ParameterWidget::launchDone);
 
 	auto* w = new QWidget;
 	w->setLayout(vl);

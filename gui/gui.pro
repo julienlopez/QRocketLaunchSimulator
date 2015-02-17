@@ -17,11 +17,13 @@ SOURCES += main.cpp \
     mainwindow.cpp \
     parameterwidget.cpp \
     rocketwidget.cpp \
-    flightwidget.cpp
+    flightwidget.cpp \
+    telemetrywidget.cpp
 
 HEADERS  += \ 
     mainwindow.hpp \
     parameterwidget.hpp \
     rocketwidget.hpp \
     launchparameters.hpp \
-    flightwidget.hpp
+    flightwidget.hpp \
+    telemetrywidget.hpp

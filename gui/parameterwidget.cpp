@@ -96,7 +96,6 @@ QStringList ParameterWidget::modelsNames() const
 }
 
 #include <QDebug>
-#include <QTimer>
 
 void ParameterWidget::launch()
 {
@@ -108,6 +107,7 @@ void ParameterWidget::launch()
 	qDebug() << "Angle : " << m_dsb_angle->value();
 
 	m_cb_rocket_model->setEnabled(false);
+	m_dsb_payload_mass->setEnabled(false);
 	m_dsb_start_gravity_turn->setEnabled(false);
 	m_dsb_end_gravity_turn->setEnabled(false);
 	m_dsb_angle->setEnabled(false);
@@ -121,11 +121,6 @@ void ParameterWidget::launch()
 		LaunchParameters{*it,								m_dsb_payload_mass->value(),
 						 m_dsb_start_gravity_turn->value(), m_dsb_end_gravity_turn->value(),
 						 m_dsb_angle->value()});
-
-	auto* timer = new QTimer;
-	timer->setSingleShot(true);
-	connect(timer, &QTimer::timeout, this, &ParameterWidget::launchDone);
-	timer->start(1000);
 }
 
 void ParameterWidget::launchDone()
@@ -133,10 +128,9 @@ void ParameterWidget::launchDone()
 	qDebug() << "ParameterWidget::launchDone()";
 
 	m_cb_rocket_model->setEnabled(true);
+	m_dsb_payload_mass->setEnabled(true);
 	m_dsb_start_gravity_turn->setEnabled(true);
 	m_dsb_end_gravity_turn->setEnabled(true);
 	m_dsb_angle->setEnabled(true);
 	m_launch_button->setEnabled(true);
-
-	sender()->deleteLater();
 }
