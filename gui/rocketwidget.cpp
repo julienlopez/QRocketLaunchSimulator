@@ -91,7 +91,7 @@ void RocketWidget::drawStage(QPainter& painter, const Stage& stage, double offse
 	const double x_point = ((double)rocket.maximumDiameter() - stage.model.diameter) / 2;
 
 	const QRectF fullRect(QPointF(x_point, offset), box);
-	double percentage = 1;
+    double percentage = stage.fillingRate();
 	auto filledRect = fullRect;
 	filledRect.setTop(offset + box.height() * (1 - percentage));
 	painter.save();

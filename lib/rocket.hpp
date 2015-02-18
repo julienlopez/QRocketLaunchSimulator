@@ -38,6 +38,8 @@ public:
 
 	void fire();
 
+	void burn(double dt);
+
 private:
 	container_stage_t m_stages;
 	bool m_is_firing = false;

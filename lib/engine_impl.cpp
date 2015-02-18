@@ -26,6 +26,7 @@ double EngineImpl::altitude() const
 
 void EngineImpl::tick(double dt)
 {
+	m_rocket.burn(dt);
 	utils::point3d<double> acceleration = {0, m_rocket.currentThrust() / m_rocket.currentMass(), 0};
 	m_state.velocity += acceleration * dt;
 	m_state.position += m_state.velocity * dt;

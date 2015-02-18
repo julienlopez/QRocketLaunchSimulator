@@ -21,6 +21,10 @@ struct StageModel
 	const std::string fuel;
 
 	static StageModel fromJson(const nlohmann::json& json);
+
+	double burnRate() const;
+
+	double fuelMass() const;
 };
 
 #endif // STAGEMODEL_HPP

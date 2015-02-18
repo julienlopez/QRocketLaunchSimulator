@@ -88,6 +88,7 @@ TEST(TestRocketModel, TestParsingRocketWithTwoStages)
 	EXPECT_EQ(296, s1.isp);
 	EXPECT_EQ(120, s1.burn_time);
 	EXPECT_EQ("solid", s1.fuel);
+	EXPECT_EQ(1 / s1.burn_time, s1.burnRate());
 
 	const auto s2 = rocket.stages.back();
 	EXPECT_EQ("AVUM", s2.name);
@@ -99,6 +100,7 @@ TEST(TestRocketModel, TestParsingRocketWithTwoStages)
 	EXPECT_EQ(315.5, s2.isp);
 	EXPECT_EQ(6672, s2.burn_time);
 	EXPECT_EQ("UDMH/N204", s2.fuel);
+	EXPECT_EQ(1 / s2.burn_time, s2.burnRate());
 }
 
 TEST(TestRocketModel, TestParsingRocketStagesInvalidType)

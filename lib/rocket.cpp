@@ -68,3 +68,9 @@ void Rocket::fire()
 {
 	m_is_firing = true;
 }
+
+void Rocket::burn(double dt)
+{
+	if(!m_stages.empty())
+		m_stages.front().burn(dt);
+}

@@ -21,3 +21,13 @@ StageModel StageModel::fromJson(const json& json)
 			utils::json_helper::getAndCheckNumber<double>(json, "burn_time"),
 			utils::json_helper::getAndCheckType<std::string>(json, "fuel", json::value_t::string)};
 }
+
+double StageModel::burnRate() const
+{
+	return 1 / burn_time;
+}
+
+double StageModel::fuelMass() const
+{
+	return gross_mass - dry_mass;
+}
