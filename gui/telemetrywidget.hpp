@@ -23,6 +23,7 @@ private:
 	QPushButton* m_start_stop_button;
 	QLCDNumber* m_altitude_lcd;
 	QLCDNumber* m_speed_lcd;
+    QLCDNumber* m_acceleration_lcd;
 	QLCDNumber* m_time_lcd;
 
 	QGroupBox* createGroupBoxFlightValues();

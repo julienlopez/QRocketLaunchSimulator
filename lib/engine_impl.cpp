@@ -24,10 +24,15 @@ double EngineImpl::altitude() const
 	return (m_initial_position - m_state.position).norm();
 }
 
+utils::point3d<double> EngineImpl::currentAcceleration() const
+{
+    return {0, m_rocket.currentThrust() / m_rocket.currentMass(), 0};
+}
+
 void EngineImpl::tick(double dt)
 {
 	m_rocket.burn(dt);
-	utils::point3d<double> acceleration = {0, m_rocket.currentThrust() / m_rocket.currentMass(), 0};
+    const auto acceleration = currentAcceleration();
 	m_state.velocity += acceleration * dt;
 	m_state.position += m_state.velocity * dt;
 	m_current_time += dt;

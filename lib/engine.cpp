@@ -26,6 +26,11 @@ double Engine::altitude() const
 	return get().altitude();
 }
 
+utils::point3d<double> Engine::currentAcceleration() const
+{
+    return get().currentAcceleration();
+}
+
 void Engine::tick(double dt)
 {
 	get().tick(dt);

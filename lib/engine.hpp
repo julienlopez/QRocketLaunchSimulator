@@ -34,6 +34,8 @@ public:
 	 */
 	double altitude() const;
 
+    utils::point3d<double> currentAcceleration() const;
+
 	void tick(double dt);
 };
 
