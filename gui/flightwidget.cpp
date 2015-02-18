@@ -15,7 +15,7 @@ FlightWidget::FlightWidget(QWidget* parent_) : QWidget(parent_)
 	m_rocket_widget = new RocketWidget;
 	hl->addWidget(m_rocket_widget);
 	m_telemetry_widget = new TelemetryWidget;
-	connect(m_telemetry_widget, &TelemetryWidget::stop, this, &FlightWidget::done);
+    connect(m_telemetry_widget, &TelemetryWidget::stop, this, &FlightWidget::pause);
 	connect(m_telemetry_widget, &TelemetryWidget::start, this, &FlightWidget::launch);
 	hl->addWidget(m_telemetry_widget);
 	hl->addStretch();
@@ -41,7 +41,13 @@ void FlightWidget::prepareLaunch(const LaunchParameters& parameters)
 
 void FlightWidget::launch()
 {
+	m_rocket->fire();
 	m_update_timer->start();
+}
+
+void FlightWidget::pause()
+{
+    m_update_timer->stop();
 }
 
 void FlightWidget::onTimerClick()

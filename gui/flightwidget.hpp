@@ -40,6 +40,8 @@ slots:
 
 	void launch();
 
+    void pause();
+
 signals:
 	void done();
 
