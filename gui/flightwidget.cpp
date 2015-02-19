@@ -37,7 +37,8 @@ void FlightWidget::prepareLaunch(const LaunchParameters& parameters)
 {
 	m_rocket = etl::utils::make_unique<Rocket>(parameters.rocket_model, parameters.payload_mass);
 	m_engine = etl::utils::make_unique
-		<Engine>(*m_rocket, Body(0 * boost::units::si::kilograms, 6378 * boost::units::si::meters));
+		<Engine>(*m_rocket, Body(5.97219E24 * boost::units::si::kilograms,
+								 6378000 * boost::units::si::meters));
 
 	m_rocket_widget->setRocket(*m_rocket);
 	m_telemetry_widget->setEngine(*m_engine);

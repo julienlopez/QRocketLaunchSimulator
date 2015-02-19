@@ -16,6 +16,8 @@ public:
 
 	utils::units::length altitude() const;
 
+	utils::units::force gravityForce() const;
+
 	utils::point3d<utils::units::acceleration> currentAcceleration() const;
 
 	void tick(utils::units::time dt);

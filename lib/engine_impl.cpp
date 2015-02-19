@@ -28,14 +28,27 @@ utils::units::length EngineImpl::altitude() const
 	return (relative_pos).norm();
 }
 
+utils::units::force EngineImpl::gravityForce() const
+{
+	using boost::units::si::cubic_meters;
+	using boost::units::si::kilograms;
+	using boost::units::si::seconds;
+	static auto G = 6.67384E-11 * cubic_meters / kilograms / seconds / seconds;
+	const auto vector = m_state.position; // because center of attracting body on {0, 0, 0} for now
+	return G * m_rocket.currentMass() * m_body.mass / vector.norm2();
+}
+
 utils::point3d<utils::units::acceleration> EngineImpl::currentAcceleration() const
 {
-	return {0, m_rocket.currentThrust() / m_rocket.currentMass(), 0};
+	const auto value = (m_rocket.currentThrust() - gravityForce()) / m_rocket.currentMass();
+	return {0, value, 0};
 }
 
 void EngineImpl::tick(utils::units::time dt)
 {
 	m_rocket.burn(dt);
+	if(m_state.position == utils::units::position_vector{0 * boost::units::si::meters})
+		return;
 	const auto acceleration = currentAcceleration();
 	m_state.velocity += dt * acceleration;
 	m_state.position += m_state.velocity * dt;
