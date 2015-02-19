@@ -6,6 +6,7 @@
 #include <etl/utils/pimpl.hpp>
 #include <etl/utils/noncopiable.hpp>
 
+class Body;
 class EngineImpl;
 class Rocket;
 
@@ -21,7 +22,7 @@ public:
 		velocity_t velocity;
 	};
 
-	Engine(Rocket& rocket_, const position_t& initial_position);
+	Engine(Rocket& rocket_, const Body& launch_body_);
 	~Engine();
 
 	const State& state() const;

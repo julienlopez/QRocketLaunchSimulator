@@ -19,7 +19,8 @@ SOURCES += \
     stage.cpp \
     fairings.cpp \
     engine.cpp \
-    engine_impl.cpp
+    engine_impl.cpp \
+    body.cpp
 
 HEADERS  += \ 
     rocketmodel.hpp \
@@ -32,4 +33,5 @@ HEADERS  += \
     engine.hpp \
     utils/point.hpp \
     engine_impl.hpp \
-    utils/units.hpp
+    utils/units.hpp \
+    body.hpp

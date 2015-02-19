@@ -1,3 +1,4 @@
+#include "body.hpp"
 #include "engine.hpp"
 #include "rocket.hpp"
 #include "rocketmodel.hpp"
@@ -10,11 +11,12 @@
 
 using nlohmann::json;
 
+using boost::units::si::kilograms;
 using boost::units::si::meters;
 using boost::units::si::newtons;
 using boost::units::si::seconds;
 
-struct TestSimulationBasicRocket : public ::testing::Test
+struct TestSimulationBasicRocketMasslessBody : public ::testing::Test
 {
 	static RocketModel createModel()
 	{
@@ -34,13 +36,12 @@ struct TestSimulationBasicRocket : public ::testing::Test
 	const RocketModel model = createModel();
 	const double payload_mass = 1E3;
 	Rocket rocket = {model, payload_mass};
-	const Engine::position_t initial_position = {0 * meters, 6378 * meters, 0 * meters};
-	Engine engine = {rocket, initial_position};
-	const Engine::position_t expected_initial_position
-		= initial_position + Engine::position_t{0, rocket.totalLength(), 0};
+	const Body body = {0 * kilograms, 6378 * meters};
+	Engine engine = {rocket, body};
+	const Engine::position_t expected_initial_position = {0, body.radius + rocket.totalLength(), 0};
 };
 
-TEST_F(TestSimulationBasicRocket, TestInitialConditions)
+TEST_F(TestSimulationBasicRocketMasslessBody, TestInitialConditions)
 {
 	EXPECT_NEAR(expected_initial_position.x().value(), engine.state().position.x().value(), 1E-6);
 	EXPECT_NEAR(expected_initial_position.y().value(), engine.state().position.y().value(), 1E-6);
@@ -52,7 +53,7 @@ TEST_F(TestSimulationBasicRocket, TestInitialConditions)
 	EXPECT_EQ(model.stages.front().gross_mass, rocket.stages().front().currentMass());
 }
 
-TEST_F(TestSimulationBasicRocket, TestStateAtLaunch)
+TEST_F(TestSimulationBasicRocketMasslessBody, TestStateAtLaunch)
 {
 	rocket.fire();
 	EXPECT_NEAR(expected_initial_position.x().value(), engine.state().position.x().value(), 1E-6);
@@ -60,18 +61,21 @@ TEST_F(TestSimulationBasicRocket, TestStateAtLaunch)
 	EXPECT_NEAR(expected_initial_position.z().value(), engine.state().position.z().value(), 1E-6);
 	EXPECT_NEAR(0, engine.state().velocity.norm2().value(), 1E-6);
 	EXPECT_EQ(model.stages.front().thrust, rocket.currentThrust());
+	const utils::units::acceleration_vector expected_acceleration
+		= {0, model.stages.front().thrust / rocket.currentMass(), 0};
+	EXPECT_EQ(expected_acceleration, engine.currentAcceleration());
 	EXPECT_EQ(1, rocket.stages().front().fillingRate());
 	EXPECT_NEAR(rocket.totalLength().value(), engine.altitude().value(), 1E-3);
 	EXPECT_EQ(model.stages.front().gross_mass, rocket.stages().front().currentMass());
 }
 
-TEST_F(TestSimulationBasicRocket, TestStateAfterLaunch)
+TEST_F(TestSimulationBasicRocketMasslessBody, TestStateAfterLaunch)
 {
 	const auto step = .1 * seconds;
 	rocket.fire();
 	engine.tick(step);
 	EXPECT_EQ(step, engine.currentTime());
-	const auto expected = initial_position + Engine::position_t{0, rocket.totalLength(), 0};
+	const auto expected = Engine::position_t{0, body.radius + rocket.totalLength(), 0};
 	EXPECT_NEAR(expected.x().value(), engine.state().position.x().value(), 1E-6);
 	EXPECT_NEAR(expected.y().value() + .237, engine.state().position.y().value(), 1E-3);
 	EXPECT_NEAR(expected.z().value(), engine.state().position.z().value(), 1E-6);
@@ -81,7 +85,7 @@ TEST_F(TestSimulationBasicRocket, TestStateAfterLaunch)
 	EXPECT_NEAR(rocket.totalLength().value() + .237, engine.altitude().value(), 1E-3);
 }
 
-TEST_F(TestSimulationBasicRocket, TestStateTillBurnout)
+TEST_F(TestSimulationBasicRocketMasslessBody, TestStateTillBurnout)
 {
 	const auto step = .1 * seconds;
 	rocket.fire();

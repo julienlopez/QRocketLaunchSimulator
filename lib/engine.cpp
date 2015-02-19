@@ -2,8 +2,8 @@
 #include "engine_impl.hpp"
 #include "rocket.hpp"
 
-Engine::Engine(Rocket& rocket_, const position_t& initial_position)
-	: etl::utils::pimpl<EngineImpl>(std::ref(rocket_), std::cref(initial_position))
+Engine::Engine(Rocket& rocket_, const Body& launch_body_)
+	: etl::utils::pimpl<EngineImpl>(std::ref(rocket_), std::cref(launch_body_))
 {
 }
 

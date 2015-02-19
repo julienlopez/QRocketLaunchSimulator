@@ -3,11 +3,12 @@
 
 #include <boost/units/cmath.hpp>
 
-EngineImpl::EngineImpl(Rocket& rocket_, const Engine::position_t& initial_position)
-	: m_rocket(rocket_)
-	, m_state({initial_position + Engine::position_t{0, m_rocket.totalLength(), 0},
+EngineImpl::EngineImpl(Rocket& rocket_, const Body& launch_body_)
+	: m_body(launch_body_)
+	, m_rocket(rocket_)
+	, m_state({Engine::position_t{0, launch_body_.radius + m_rocket.totalLength(), 0},
 			   Engine::velocity_t{0}})
-	, m_initial_position(initial_position)
+	, m_initial_position({0, launch_body_.radius, 0})
 {
 }
 

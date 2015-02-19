@@ -147,6 +147,15 @@ namespace utils
 		return p * scalar;
 	}
 
+	template <class T, class U, std::size_t DIM>
+	bool operator==(const point<T, DIM>& p1, const point<U, DIM>& p2)
+	{
+		for(std::size_t i = 0; i < DIM; i++)
+			if(p1[i] != p2[i])
+				return false;
+		return true;
+	}
+
 	template <class T> using point3d = point<T, 3>;
 }
 
