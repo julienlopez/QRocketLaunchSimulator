@@ -20,7 +20,7 @@ namespace utils
 		using velocity = boost::units::quantity<boost::units::si::velocity>;
 
 		using acceleration_vector = utils::point3d<acceleration>;
-        using velocity_vector = utils::point3d<velocity>;
+		using velocity_vector = utils::point3d<velocity>;
 		using position_vector = utils::point3d<length>;
 	}
 }

@@ -35,8 +35,8 @@ utils::point3d<utils::units::acceleration> EngineImpl::currentAcceleration() con
 void EngineImpl::tick(utils::units::time dt)
 {
 	m_rocket.burn(dt);
-    const auto acceleration = currentAcceleration();
-    m_state.velocity += dt * acceleration;
+	const auto acceleration = currentAcceleration();
+	m_state.velocity += dt * acceleration;
 	m_state.position += m_state.velocity * dt;
 	m_current_time += dt;
 }
