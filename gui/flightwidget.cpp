@@ -9,13 +9,15 @@
 #include <QHBoxLayout>
 #include <QTimer>
 
+constexpr double FlightWidget::s_dt;
+
 FlightWidget::FlightWidget(QWidget* parent_) : QWidget(parent_)
 {
 	auto* hl = new QHBoxLayout;
 	m_rocket_widget = new RocketWidget;
 	hl->addWidget(m_rocket_widget);
 	m_telemetry_widget = new TelemetryWidget;
-    connect(m_telemetry_widget, &TelemetryWidget::stop, this, &FlightWidget::pause);
+	connect(m_telemetry_widget, &TelemetryWidget::stop, this, &FlightWidget::pause);
 	connect(m_telemetry_widget, &TelemetryWidget::start, this, &FlightWidget::launch);
 	hl->addWidget(m_telemetry_widget);
 	hl->addStretch();
@@ -33,7 +35,9 @@ FlightWidget::~FlightWidget()
 void FlightWidget::prepareLaunch(const LaunchParameters& parameters)
 {
 	m_rocket = etl::utils::make_unique<Rocket>(parameters.rocket_model, parameters.payload_mass);
-	m_engine = etl::utils::make_unique<Engine>(*m_rocket, Engine::position_t{0, 6378, 0});
+	m_engine = etl::utils::make_unique<Engine>(
+		*m_rocket, Engine::position_t{0 * boost::units::si::meters, 6378 * boost::units::si::meters,
+									  0 * boost::units::si::meters});
 
 	m_rocket_widget->setRocket(*m_rocket);
 	m_telemetry_widget->setEngine(*m_engine);
@@ -47,14 +51,14 @@ void FlightWidget::launch()
 
 void FlightWidget::pause()
 {
-    m_update_timer->stop();
+	m_update_timer->stop();
 }
 
 void FlightWidget::onTimerClick()
 {
 	Q_ASSERT(m_engine);
 
-	m_engine->tick(s_dt);
+	m_engine->tick(s_dt * boost::units::si::seconds);
 
 	m_rocket_widget->update();
 	m_telemetry_widget->updateWidgets();

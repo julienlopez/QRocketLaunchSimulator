@@ -24,21 +24,21 @@ public:
 
 	const container_stage_t& stages() const;
 
-	double currentMass() const;
+	utils::units::mass currentMass() const;
 
-	double grossMass() const;
+	utils::units::mass grossMass() const;
 
-	double dryMass() const;
+	utils::units::mass dryMass() const;
 
-	double currentThrust() const;
+	utils::units::force currentThrust() const;
 
-	double totalLength() const;
+	utils::units::length totalLength() const;
 
-	double maximumDiameter() const;
+	utils::units::length maximumDiameter() const;
 
 	void fire();
 
-	void burn(double dt);
+	void burn(utils::units::time dt);
 
 private:
 	container_stage_t m_stages;

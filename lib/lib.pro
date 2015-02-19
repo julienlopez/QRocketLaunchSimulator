@@ -31,4 +31,5 @@ HEADERS  += \
     fairings.hpp \
     engine.hpp \
     utils/point.hpp \
-    engine_impl.hpp
+    engine_impl.hpp \
+    utils/units.hpp

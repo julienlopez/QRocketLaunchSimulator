@@ -47,7 +47,7 @@ private:
 	 * @param offset
 	 * @precondition m_rocket is valid
 	 */
-	void drawStage(QPainter& painter, const Stage& stage, double offset) const;
+	void drawStage(QPainter& painter, const Stage& stage, const utils::units::length& offset) const;
 
 	static void changePainterColor(QPainter& painter, QColor color, double width = .1);
 };

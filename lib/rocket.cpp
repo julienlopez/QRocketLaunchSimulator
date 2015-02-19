@@ -17,48 +17,48 @@ auto Rocket::stages() const -> const container_stage_t &
 	return m_stages;
 }
 
-double Rocket::currentMass() const
+utils::units::mass Rocket::currentMass() const
 {
-	double res = 0;
+	utils::units::mass res = 0;
 	for(const auto& stage : m_stages)
 		res += stage.currentMass();
 	return res;
 }
 
-double Rocket::grossMass() const
+utils::units::mass Rocket::grossMass() const
 {
-	double res = 0;
+	utils::units::mass res = 0;
 	for(const auto& stage : m_stages)
 		res += stage.model.gross_mass;
 	return res;
 }
 
-double Rocket::dryMass() const
+utils::units::mass Rocket::dryMass() const
 {
-	double res = 0;
+	utils::units::mass res = 0;
 	for(const auto& stage : m_stages)
 		res += stage.model.dry_mass;
 	return res;
 }
 
-double Rocket::currentThrust() const
+utils::units::force Rocket::currentThrust() const
 {
 	if(!m_is_firing || m_stages.empty())
 		return 0;
 	return m_stages.front().currentThrust();
 }
 
-double Rocket::totalLength() const
+utils::units::length Rocket::totalLength() const
 {
-	double res = fairings.length;
+	utils::units::length res = fairings.length;
 	for(const auto& stage : m_stages)
 		res += stage.model.length;
 	return res;
 }
 
-double Rocket::maximumDiameter() const
+utils::units::length Rocket::maximumDiameter() const
 {
-	double res = fairings.diameter;
+	utils::units::length res = fairings.diameter;
 	for(const auto& stage : m_stages)
 		res = std::max(stage.model.diameter, res);
 	return res;
@@ -69,7 +69,7 @@ void Rocket::fire()
 	m_is_firing = true;
 }
 
-void Rocket::burn(double dt)
+void Rocket::burn(utils::units::time dt)
 {
 	if(!m_stages.empty())
 		m_stages.front().burn(dt);

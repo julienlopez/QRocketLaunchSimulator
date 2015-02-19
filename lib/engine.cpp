@@ -16,22 +16,22 @@ auto Engine::state() const -> const State &
 	return get().state();
 }
 
-double Engine::currentTime() const
+utils::units::time Engine::currentTime() const
 {
 	return get().currentTime();
 }
 
-double Engine::altitude() const
+utils::units::length Engine::altitude() const
 {
 	return get().altitude();
 }
 
-utils::point3d<double> Engine::currentAcceleration() const
+utils::units::acceleration_vector Engine::currentAcceleration() const
 {
-    return get().currentAcceleration();
+	return get().currentAcceleration();
 }
 
-void Engine::tick(double dt)
+void Engine::tick(utils::units::time dt)
 {
 	get().tick(dt);
 }

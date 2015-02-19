@@ -8,6 +8,12 @@
 
 using nlohmann::json;
 
+using boost::units::si::meters;
+using boost::units::si::kilograms;
+using boost::units::si::kilograms;
+using boost::units::si::newtons;
+using boost::units::si::seconds;
+
 TEST(TestRocketModel, TestParsingRocketWithNoStages)
 {
 	const std::string name = "test";
@@ -80,27 +86,27 @@ TEST(TestRocketModel, TestParsingRocketWithTwoStages)
 
 	const auto s1 = rocket.stages.front();
 	EXPECT_EQ("Z9", s1.name);
-	EXPECT_EQ(4.12, s1.length);
-	EXPECT_EQ(1.9, s1.diameter);
-	EXPECT_EQ(1315, s1.dry_mass);
-	EXPECT_EQ(11815, s1.gross_mass);
-	EXPECT_EQ(260000, s1.thrust);
-	EXPECT_EQ(296, s1.isp);
-	EXPECT_EQ(120, s1.burn_time);
+	EXPECT_EQ(4.12 * meters, s1.length);
+	EXPECT_EQ(1.9 * meters, s1.diameter);
+	EXPECT_EQ(1315 * kilograms, s1.dry_mass);
+	EXPECT_EQ(11815 * kilograms, s1.gross_mass);
+	EXPECT_EQ(260000 * newtons, s1.thrust);
+	EXPECT_EQ(296 * seconds, s1.isp);
+	EXPECT_EQ(120 * seconds, s1.burn_time);
 	EXPECT_EQ("solid", s1.fuel);
-	EXPECT_EQ(1 / s1.burn_time, s1.burnRate());
+	EXPECT_EQ(1 * boost::units::si::si_dimensionless / s1.burn_time, s1.burnRate());
 
 	const auto s2 = rocket.stages.back();
 	EXPECT_EQ("AVUM", s2.name);
-	EXPECT_EQ(1.7, s2.length);
-	EXPECT_EQ(2.31, s2.diameter);
-	EXPECT_EQ(147, s2.dry_mass);
-	EXPECT_EQ(697, s2.gross_mass);
-	EXPECT_EQ(2420, s2.thrust);
-	EXPECT_EQ(315.5, s2.isp);
-	EXPECT_EQ(6672, s2.burn_time);
+	EXPECT_EQ(1.7 * meters, s2.length);
+	EXPECT_EQ(2.31 * meters, s2.diameter);
+	EXPECT_EQ(147 * kilograms, s2.dry_mass);
+	EXPECT_EQ(697 * kilograms, s2.gross_mass);
+	EXPECT_EQ(2420 * newtons, s2.thrust);
+	EXPECT_EQ(315.5 * seconds, s2.isp);
+	EXPECT_EQ(6672 * seconds, s2.burn_time);
 	EXPECT_EQ("UDMH/N204", s2.fuel);
-	EXPECT_EQ(1 / s2.burn_time, s2.burnRate());
+	EXPECT_EQ(1 * boost::units::si::si_dimensionless / s2.burn_time, s2.burnRate());
 }
 
 TEST(TestRocketModel, TestParsingRocketStagesInvalidType)

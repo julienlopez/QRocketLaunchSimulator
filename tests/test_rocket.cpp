@@ -7,6 +7,9 @@
 
 using json = nlohmann::json;
 
+using boost::units::si::meters;
+using boost::units::si::newtons;
+
 struct TestRocketOneStage : public ::testing::Test
 {
 	static RocketModel createModel()
@@ -97,17 +100,17 @@ TEST_F(TestRocketTwoStages, TestCurrentMassOnConstruction)
 TEST_F(TestRocketTwoStages, TestCurrentThrustOnConstruction)
 {
 	Rocket rocket(model, payload_mass);
-	ASSERT_EQ(0, rocket.currentThrust());
+	ASSERT_EQ(0 * newtons, rocket.currentThrust());
 }
 
 TEST_F(TestRocketTwoStages, TestTotalHeightOnConstruction)
 {
 	Rocket rocket(model, payload_mass);
-	ASSERT_EQ(11.7 + 8.39 + 7.88, rocket.totalLength());
+	ASSERT_EQ((11.7 + 8.39 + 7.88) * meters, rocket.totalLength());
 }
 
 TEST_F(TestRocketTwoStages, TestMaxDiameterOnConstruction)
 {
 	Rocket rocket(model, payload_mass);
-	ASSERT_EQ(3, rocket.maximumDiameter());
+	ASSERT_EQ(3 * meters, rocket.maximumDiameter());
 }

@@ -32,7 +32,7 @@ private:
 
 	QTimer* m_update_timer;
 
-	static constexpr double s_dt = .1;
+	static constexpr double s_dt = {.1};
 
 public
 slots:
@@ -40,7 +40,7 @@ slots:
 
 	void launch();
 
-    void pause();
+	void pause();
 
 signals:
 	void done();

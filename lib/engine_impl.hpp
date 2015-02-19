@@ -11,19 +11,19 @@ public:
 
 	const Engine::State& state() const;
 
-	double currentTime() const;
+	utils::units::time currentTime() const;
 
-	double altitude() const;
+	utils::units::length altitude() const;
 
-    utils::point3d<double> currentAcceleration() const;
+	utils::point3d<utils::units::acceleration> currentAcceleration() const;
 
-	void tick(double dt);
+	void tick(utils::units::time dt);
 
 private:
 	Rocket& m_rocket;
 	Engine::State m_state;
 	Engine::position_t m_initial_position;
-	double m_current_time = 0;
+	utils::units::time m_current_time = 0;
 };
 
 #endif // ENGINE_IMPL_HPP

@@ -10,9 +10,9 @@ public:
 
 	const StageModel model;
 
-	double currentMass() const;
+	utils::units::mass currentMass() const;
 
-	double currentThrust() const;
+	utils::units::force currentThrust() const;
 
 	/**
 	 * @brief fillingRate current filling rate of the stage, 0 <= FR <= 1
@@ -21,7 +21,7 @@ public:
 	 */
 	double fillingRate() const;
 
-	void burn(double dt);
+	void burn(utils::units::time dt);
 
 private:
 	double m_filling_rate = 1;

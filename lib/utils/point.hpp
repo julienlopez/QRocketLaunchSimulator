@@ -141,7 +141,7 @@ namespace utils
 		return p1;
 	}
 
-	template <class T, std::size_t DIM> point<T, DIM> operator*(T scalar, const point<T, DIM>& p)
+    template <class T, class U, std::size_t DIM> point<decltype(T()*U()), DIM> operator*(U scalar, const point<T, DIM>& p)
 	{
 		return p * scalar;
 	}

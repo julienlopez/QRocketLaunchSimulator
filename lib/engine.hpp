@@ -1,7 +1,7 @@
 #ifndef ENGINE_HPP
 #define ENGINE_HPP
 
-#include "utils/point.hpp"
+#include "utils/units.hpp"
 
 #include <etl/utils/pimpl.hpp>
 #include <etl/utils/noncopiable.hpp>
@@ -12,8 +12,8 @@ class Rocket;
 class Engine : private etl::utils::pimpl<EngineImpl>, private etl::utils::noncopiable
 {
 public:
-	using position_t = utils::point3d<double>;
-	using velocity_t = utils::point3d<double>;
+	using position_t = utils::units::position_vector;
+	using velocity_t = utils::units::velocity_vector;
 
 	struct State
 	{
@@ -26,17 +26,17 @@ public:
 
 	const State& state() const;
 
-	double currentTime() const;
+	utils::units::time currentTime() const;
 
 	/**
 	 * @brief altitude returns the altitude, relative to the ground.
 	 * @return
 	 */
-	double altitude() const;
+	utils::units::length altitude() const;
 
-    utils::point3d<double> currentAcceleration() const;
+	utils::units::acceleration_vector currentAcceleration() const;
 
-	void tick(double dt);
+	void tick(utils::units::time dt);
 };
 
 #endif // ENGINE_HPP

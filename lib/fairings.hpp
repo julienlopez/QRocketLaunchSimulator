@@ -1,6 +1,8 @@
 #ifndef FAIRINGS_HPP
 #define FAIRINGS_HPP
 
+#include "utils/units.hpp"
+
 #include <string>
 
 namespace nlohmann
@@ -10,8 +12,8 @@ namespace nlohmann
 
 struct Fairings
 {
-	const double length;
-	const double diameter;
+	const utils::units::length length;
+	const utils::units::length diameter;
 
 	static Fairings fromJson(const nlohmann::json& js);
 };

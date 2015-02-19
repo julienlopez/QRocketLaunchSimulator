@@ -1,6 +1,8 @@
 #ifndef STAGEMODEL_HPP
 #define STAGEMODEL_HPP
 
+#include "utils/units.hpp"
+
 #include <string>
 
 namespace nlohmann
@@ -11,20 +13,20 @@ namespace nlohmann
 struct StageModel
 {
 	const std::string name;
-	const double length;
-	const double diameter;
-	const double dry_mass;
-	const double gross_mass;
-	const double thrust;
-	const double isp;
-	const double burn_time;
+	const utils::units::length length;
+	const utils::units::length diameter;
+	const utils::units::mass dry_mass;
+	const utils::units::mass gross_mass;
+	const utils::units::force thrust;
+	const utils::units::time isp;
+	const utils::units::time burn_time;
 	const std::string fuel;
 
 	static StageModel fromJson(const nlohmann::json& json);
 
-	double burnRate() const;
+	utils::units::frequency burnRate() const;
 
-	double fuelMass() const;
+	utils::units::mass fuelMass() const;
 };
 
 #endif // STAGEMODEL_HPP
