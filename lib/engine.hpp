@@ -25,6 +25,8 @@ public:
 	Engine(Rocket& rocket_, const Body& launch_body_);
 	~Engine();
 
+	const Body& body() const;
+
 	const State& state() const;
 
 	utils::units::time currentTime() const;

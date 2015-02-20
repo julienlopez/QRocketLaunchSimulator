@@ -10,6 +10,8 @@ public:
 	EngineImpl(Rocket& rocket_, const Body& launch_body_);
 	~EngineImpl() = default;
 
+	const Body& body() const;
+
 	const Engine::State& state() const;
 
 	utils::units::time currentTime() const;

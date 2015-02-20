@@ -11,6 +11,11 @@ Engine::~Engine()
 {
 }
 
+const Body& Engine::body() const
+{
+	return get().body();
+}
+
 auto Engine::state() const -> const State &
 {
 	return get().state();

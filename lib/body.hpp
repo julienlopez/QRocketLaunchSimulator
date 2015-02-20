@@ -9,6 +9,8 @@ struct Body
 
 	const utils::units::mass mass;
 	const utils::units::length radius;
+
+	utils::units::pressure atmosphericPressure(const utils::units::length& altitude) const;
 };
 
 #endif // BODY_HPP

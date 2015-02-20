@@ -18,6 +18,7 @@ namespace utils
 		using area = boost::units::quantity<boost::units::si::area>;
 		using time = boost::units::quantity<boost::units::si::time>;
 		using velocity = boost::units::quantity<boost::units::si::velocity>;
+		using pressure = boost::units::quantity<boost::units::si::pressure>;
 
 		using acceleration_vector = utils::point3d<acceleration>;
 		using velocity_vector = utils::point3d<velocity>;

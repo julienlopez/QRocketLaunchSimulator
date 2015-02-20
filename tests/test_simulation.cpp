@@ -15,6 +15,7 @@ using boost::units::si::kilograms;
 using boost::units::si::meters;
 using boost::units::si::newtons;
 using boost::units::si::seconds;
+using boost::units::si::pascals;
 
 struct TestSimulationBasicRocketMasslessBody : public ::testing::Test
 {
@@ -40,6 +41,11 @@ struct TestSimulationBasicRocketMasslessBody : public ::testing::Test
 	Engine engine = {rocket, body};
 	const Engine::position_t expected_initial_position = {0, body.radius + rocket.totalLength(), 0};
 };
+
+TEST_F(TestSimulationBasicRocketMasslessBody, TestAtmosphericPressure)
+{
+	EXPECT_NEAR(101325, engine.body().atmosphericPressure(0 * meters).value(), 1E-6);
+}
 
 TEST_F(TestSimulationBasicRocketMasslessBody, TestInitialConditions)
 {

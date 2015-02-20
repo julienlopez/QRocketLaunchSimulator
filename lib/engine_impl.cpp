@@ -12,6 +12,11 @@ EngineImpl::EngineImpl(Rocket& rocket_, const Body& launch_body_)
 {
 }
 
+const Body& EngineImpl::body() const
+{
+	return m_body;
+}
+
 const Engine::State& EngineImpl::state() const
 {
 	return m_state;
